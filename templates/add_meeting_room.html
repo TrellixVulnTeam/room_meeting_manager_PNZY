@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RMM</title>
+</head>
+<body>
+<div id="title"><h1>Room meeting manager</h1></div>
+<div id="menu"><h2 id="menu_name">Menu:</h2>
+    <a href="">All meetings rooms</a>
+    <a href="">Add new meeting room</a>
+</div>
+<div id="form">
+    <form method="POST">
+        {% csrf_token %}
+        <label>
+            Meeting room name:
+            <input type="text" name="name">
+        </label>
+        <label>
+            Meeting room name:
+            <input type="number" name="seats">
+        </label>
+        <label>
+            Meeting room name:
+            <input type="checkbox" name="projector">
+        </label>
+        <input type="submit">
+    </form>
+    {% if information %}
+        <p>{{ information }}</p>
+    {% endif %}
+</div>
+<div id="footer">Created by xMag</div>
+</body>
+</html>
