@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from manager.views import AddMeetingRoom
+from manager.views import AddMeetingRoom, MeetingRoomsList, DeleteMeetingRoom, ModifyMeetingRoom
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('room/new/', AddMeetingRoom.as_view()),
+    path('room/', MeetingRoomsList.as_view()),
+    path('room/delete/<room_id>', DeleteMeetingRoom.as_view()),
+    path('room/modify/<room_id>', ModifyMeetingRoom.as_view()),
 ]

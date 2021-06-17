@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RMM</title>
+</head>
+<body>
+<div id="title">Room meeting manager</div>
+<div id="menu"><h1 id="menu_name">Menu:</h1>
+    <a href="/room/">All meetings rooms</a>
+    <a href="/room/new">Add new meeting room</a>
+</div>
+<div id="list">
+    <table border="5">
+        <th>
+            <td class="table_header">Room Name</td>
+            <td class="table_header">Seats</td>
+            <td class="table_header">Projector</td>
+            <td class="table_header">Status</td>
+        </th>
+        {% for room in meeting_rooms %}
+            <tr>
+                <td></td>
+                <td><a href="/room/{{ room.id }}">{{ room.name }}</a></td>
+                <td>{{ room.seats }}</td>
+                <td>{{ room.projector }}</td>
+                <td>{{ status }}</td>
+                <td><a href="/room/modify/{{ room.id }}">Edit</a></td>
+                <td><a href="/room/delete/{{ room.id }}">Delete</a></td>
+                <td><a href="/room/reserve/{{ room.id }}">Reserve</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div id="footer">Created by xMag</div>
+</body>
+</html>
