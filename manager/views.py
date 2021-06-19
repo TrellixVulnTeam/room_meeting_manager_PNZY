@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views import View
-from manager.models import MeetingRoom
+from manager.models import MeetingRoom, Reservation
+from datetime import timedelta, date
 
 
 class AddMeetingRoom(View):
@@ -28,10 +29,12 @@ class AddMeetingRoom(View):
 class MeetingRoomsList(View):
     def get(self, request):
         rooms = MeetingRoom.objects.all()
-        return render(request, 'meeting_rooms_list.html', context={'meeting_rooms': rooms})
-
-    def post(self, request):
-        pass
+        today_reservations = Reservation.objects.filter(date=date.today())
+        reserved_rooms = []
+        for today_reservation in today_reservations:
+            reserved_rooms.append(today_reservation.id_meeting_room.id)
+        return render(request, 'meeting_rooms_list.html', context={'meeting_rooms': rooms,
+                                                                   'reserved_rooms': reserved_rooms})
 
 
 class DeleteMeetingRoom(View):
@@ -74,3 +77,31 @@ class ModifyMeetingRoom(View):
         room.projector = projector
         room.save()
         return redirect('/room/')
+
+
+class MakeReservation(View):
+    def get(self, request, room_id):
+        room = MeetingRoom.objects.get(id=room_id)
+        reservations = Reservation.objects.filter(id_meeting_room__name=room.name).order_by('date')
+        return render(request, 'meeting_room_reservation.html', context={'reservations': reservations})
+
+    def post(self, request, room_id):
+        reservation_date = date.fromisoformat(request.POST.get('date'))
+        if reservation_date < date.today():
+            return redirect('/room/')
+        comment = request.POST.get('comment')
+        room = MeetingRoom.objects.get(id=room_id)
+        reservations = Reservation.objects.filter(id_meeting_room__name=room.name)
+        for reservation in reservations:
+            if reservation_date == reservation.date:
+                return redirect('/room/')
+            else:
+                Reservation.objects.create(date=reservation_date, comment=comment, id_meeting_room_id=room_id)
+                return redirect('/room/')
+
+
+class MeetingRoomDetails(View):
+    def get(self, request, room_id):
+        room = MeetingRoom.objects.get(id=room_id)
+        reservations = Reservation.objects.filter(id_meeting_room__name=room.name).order_by('date')
+        return render(request, 'meeting_room_details.html', context={'room': room, 'reservations': reservations})

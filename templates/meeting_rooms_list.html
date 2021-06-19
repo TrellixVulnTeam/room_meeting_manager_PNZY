@@ -24,7 +24,7 @@
                 <td><a href="/room/{{ room.id }}">{{ room.name }}</a></td>
                 <td>{{ room.seats }}</td>
                 <td>{{ room.projector }}</td>
-                <td>{{ status }}</td>
+                {% if room.id in reserved_rooms %}<td>Used</td>{% else %}<td>Not used</td>{% endif %}
                 <td><a href="/room/modify/{{ room.id }}">Edit</a></td>
                 <td><a href="/room/delete/{{ room.id }}">Delete</a></td>
                 <td><a href="/room/reserve/{{ room.id }}">Reserve</a></td>
