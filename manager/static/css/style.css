@@ -1,0 +1,29 @@
+body {
+    background-color: slategray;
+    color: azure;
+}
+
+.title {
+    background-color: slategray;
+    color: goldenrod;
+    font-family: 'Dela Gothic One', cursive;
+    font-size: 30px;
+}
+
+.menu {
+    background-color: goldenrod;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.list {
+    font-family: 'Roboto Mono', monospace;
+    background-color: lightslategrey;
+    padding: 20px 20px 20px 60px;
+    border: 10px;
+}
+a {
+    color: azure;
+}
+.footer {
+}
+

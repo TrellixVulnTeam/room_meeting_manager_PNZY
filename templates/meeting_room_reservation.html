@@ -1,16 +1,20 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>RMM</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display&family=Dela+Gothic+One&family=Roboto+Mono:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-<div id="title">Room meeting manager</div>
-<div id="menu"><h1 id="menu_name">Menu:</h1>
+<div class="title"><h1>Room meeting manager</h1></div>
+<div class="menu"><h2 class="menu_name">Menu:</h2>
     <a href="/room">All meetings rooms</a>
     <a href="/room/new">Add new meeting room</a>
 </div>
-<div id="form">
+<div class="form">
     <form method="POST">
         {% csrf_token %}
         <label>
@@ -24,13 +28,13 @@
         <input type="submit">
     </form>
 </div>
-<div id="reservation_list">
+<div class="reservation_list">
     <ul>
         {% for reservation in reservations %}
             <li>{{ reservation.date }} <= {{ reservation.comment }}</li>
         {% endfor %}
     </ul>
 </div>
-<div id="footer">Created by xMag</div>
+<div class="footer">Created by xMag</div>
 </body>
 </html>
